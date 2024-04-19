@@ -1,0 +1,8 @@
+.menuActiveMoon {
+    background-color: white;
+    color: #000;
+}
+.menuActiveSun {
+    background-color: #000;
+    color: white;
+}
