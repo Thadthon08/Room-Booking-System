@@ -18,10 +18,15 @@ import { LoginFormInput } from '../interface/login-form-input.type';
 import { useForm, SubmitHandler } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAppDispatch } from '../redux-toolkit/hooks';
+import { loginThunk } from '../redux-toolkit/auth/auth-slice';
+import { LoginErrorResponse } from '../interface/login.type';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
-  
+  const navigate = useNavigate()
   const toast = useToast();
+  const dispatch = useAppDispatch();
 
   const schema = yup.object().shape({
     email: yup.string().required('ป้อนข้อมูลอีเมลด้วย'),
@@ -33,16 +38,26 @@ export default function LoginPage() {
     handleSubmit,
     formState: { errors ,isSubmitting },
   } = useForm<LoginFormInput>({resolver: yupResolver(schema)})
-  const onSubmit: SubmitHandler<LoginFormInput> = (data) => {
-    // console.log(data);
-    toast({
-          title: 'Account created.',
-          description: "We've created your account for you.",
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-          position: 'top-right',
+
+  
+  const onSubmit: SubmitHandler<LoginFormInput> = async (data) => {
+  
+    try {
+      const result = await dispatch(loginThunk(data)).unwrap();
+      if(result.access_token){
+        navigate('/dashboard');
+      }
+    } 
+    catch (error: any) {
+      let err : LoginErrorResponse = error;
+      toast({
+      title: err.message,
+      status: 'error',
+      duration: 3000,
+      isClosable: true,
+      position: 'top-right',
     })
+    }
   }
 
 

@@ -9,12 +9,15 @@ import {
   IconProps,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import Footer from '../components/footer';
+import { useAppSelector } from '../redux-toolkit/hooks';
+import authSlice, { selectAuthState } from '../redux-toolkit/auth/auth-slice';
 
-export default function HomePage() {
+export default function HomePage() { 
   const navigate = useNavigate();
+  const authState = useAppSelector(selectAuthState) //ดึง authState มาใช้
+
+
   return (
-    <div>
       <Container maxW={'5xl'}>
         <Stack
           textAlign={'center'}
@@ -58,8 +61,6 @@ export default function HomePage() {
           </Flex>
         </Stack>
       </Container>
-      <Footer />
-    </div>
   );
 }
 

@@ -3,6 +3,7 @@ import authReducer from './auth/auth-slice'
 
 export const store = configureStore({
   reducer: {
+    //Global State
     authState: authReducer
   },
 })
