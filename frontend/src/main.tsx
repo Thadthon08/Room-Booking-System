@@ -1,4 +1,7 @@
-import * as React from 'react'
+import { Provider } from 'react-redux'
+import { store } from './redux-toolkit/store'
+
+// import * as React from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 import * as ReactDOM from 'react-dom/client'
 import './global.css'
@@ -16,10 +19,12 @@ const theme = extendTheme({ config })
 
 const rootElement = document.getElementById('root')
 ReactDOM.createRoot(rootElement!).render(
-  <React.StrictMode>
-      <ChakraProvider>
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <RouterProvider router={router} />
-      </ChakraProvider>
-  </React.StrictMode>,
+  <Provider store={store}>
+      {/* <React.StrictMode> */}
+        <ChakraProvider>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+          <RouterProvider router={router} />
+        </ChakraProvider>
+      {/* </React.StrictMode> */}
+  </Provider>
 )
