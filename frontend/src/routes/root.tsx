@@ -3,7 +3,13 @@ import HomePage from '../pages/home-page';
 import AboutPage from '../pages/about-page.tsx';
 import LoginPage from '../pages/login-page';
 import  {routeDashboard} from './dashboard';
-import Footer from '../components/footer';
+
+function checkToken() {
+  const token = localStorage.getItem('token');
+  return !!token; //return bool
+}
+
+
 
 export const router = createBrowserRouter([
   {

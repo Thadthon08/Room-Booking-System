@@ -4,8 +4,7 @@ import { RootState } from '../store';
 import { login } from '../../services/auth.service';
 import { LoginFormInput } from '../../interface/login-form-input.type';
 import { LoginErrorResponse, LoginResponse } from '../../interface/login.type';
-import { Axios, AxiosError } from 'axios';
-import { json } from 'react-router-dom';
+import {  AxiosError } from '../../services/http.service';
 
 export interface AuthState {
     email: string;
@@ -49,11 +48,11 @@ export const authSlice = createSlice({
       state.email = 'marry@Doe Example';
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(loginThunk.fulfilled, (state, action: PayloadAction<LoginResponse | null>) => {
-      state.loginResponse = action.payload;   //กรณีต้องการใช้ Globla state ใช้  unwarp แทนได้
-    })
-  }
+  // extraReducers: (builder) => {
+  //   builder.addCase(loginThunk.fulfilled, (state, action: PayloadAction<LoginResponse | null>) => {
+  //     state.loginResponse = action.payload;   //กรณีต้องการใช้ Globla state ใช้  unwarp แทนได้
+  //   })
+  // }
 })
 
 // Action creators are generated for each case reducer function

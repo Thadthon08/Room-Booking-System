@@ -15,7 +15,9 @@ import authSlice, { selectAuthState } from '../redux-toolkit/auth/auth-slice';
 export default function HomePage() { 
   const navigate = useNavigate();
   const authState = useAppSelector(selectAuthState) //ดึง authState มาใช้
-
+  // const token = localStorage.getItem('token');
+  console.log(authState.profile);
+  
 
   return (
       <Container maxW={'5xl'}>
@@ -45,7 +47,10 @@ export default function HomePage() {
               colorScheme={'orange'}
               bg={'orange.400'}
               _hover={{ bg: 'orange.500' }}
-              onClick={() => navigate("/login")}
+              onClick={() => {
+                  authState.profile ? navigate("/dashboard") : navigate('/login')
+                }
+              }
               >
                 เข้าสู่ระบบ
             </Button>
